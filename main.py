@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
 yam-cliamp: Retro Winamp / cliamp Terminal Player for Yandex Music.
-Launches the full interactive Winamp TUI player by default with in-interface
-Wave Mood selector, spectrum visualizer, playlist, and hotkeys.
+Launches the official cliamp player with Yandex Music provider (--provider yandex) by default,
+handling browser-based authorization and My Wave mood/character configuration.
 """
 
 import sys
@@ -20,7 +20,7 @@ from yam_cliamp.wave_settings import set_wave_mood, interactive_wave_setup
 
 def main():
     parser = argparse.ArgumentParser(
-        description="yam-cliamp: Терминальный ретро-плеер Яндекс Музыки (Winamp / cliamp TUI)"
+        description="yam-cliamp: Терминальный плеер Яндекс Музыки (оригинальный cliamp)"
     )
     parser.add_argument(
         "--auth",
@@ -53,9 +53,9 @@ def main():
         help="Язык треков: any (любой), russian (русский), not-russian (иностранный)",
     )
     parser.add_argument(
-        "--cliamp",
+        "--py",
         action="store_true",
-        help="Запустить внешний Go-клиент /usr/bin/cliamp вместо встроенного TUI",
+        help="Запустить альтернативный Python curses TUI плеер",
     )
 
     args, extra_args = parser.parse_known_args()
@@ -93,18 +93,22 @@ def main():
         set_wave_mood(token, mood=mood, diversity=char, language=lang)
         print("✅ Настройки применены!")
 
-    # If --cliamp flag was explicitly requested, delegate to /usr/bin/cliamp
-    if args.cliamp:
-        cliamp_bin = shutil.which("cliamp")
-        if cliamp_bin:
-            cmd = [cliamp_bin, "--provider", "yandex"] + extra_args
-            os.execvp(cliamp_bin, cmd)
+    # If --py flag was explicitly requested, run the Python curses TUI
+    if args.py:
+        app = YamCliampApp()
+        app.run()
+        return
 
     # DEFAULT BEHAVIOR:
-    # Run our dedicated TUI player with in-interface Wave Mood modal,
-    # spectrum analyzer, and dual EN/RU keyboard support!
-    app = YamCliampApp()
-    app.run()
+    # Run official /usr/bin/cliamp with --provider yandex
+    cliamp_bin = shutil.which("cliamp")
+    if cliamp_bin:
+        cmd = [cliamp_bin, "--provider", "yandex"] + extra_args
+        os.execvp(cliamp_bin, cmd)
+    else:
+        # Fallback to python TUI if cliamp is not in PATH
+        app = YamCliampApp()
+        app.run()
 
 
 if __name__ == "__main__":

@@ -114,6 +114,15 @@ def sync_with_cliamp(token: str):
 
         with open(CLIAMP_CONFIG_FILE, "w", encoding="utf-8") as f:
             f.write(content.strip() + "\n")
+
+        lua_plugin = os.path.expanduser("~/.config/cliamp/plugins/yandex-wave.lua")
+        if os.path.exists(lua_plugin):
+            with open(lua_plugin, "r", encoding="utf-8") as f:
+                lcontent = f.read()
+            import re
+            lcontent = re.sub(r'local token = ".*?"', f'local token = "{token}"', lcontent)
+            with open(lua_plugin, "w", encoding="utf-8") as f:
+                f.write(lcontent)
     except Exception as e:
         print(f"Warning: could not sync with cliamp config: {e}", file=sys.stderr)
 
