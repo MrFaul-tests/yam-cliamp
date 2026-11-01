@@ -38,9 +38,14 @@ def main():
         help="Интерактивно выбрать настроение, характер и язык «Моей волны» перед запуском",
     )
     parser.add_argument(
+        "--lofi",
+        action="store_true",
+        help="Запустить волну «Моя волна: Lo-Fi» (чилл, фокус, lofi hip-hop)",
+    )
+    parser.add_argument(
         "--mood",
-        choices=["active", "fun", "calm", "sad", "all"],
-        help="Настроение волны: active (бодрое), fun (весёлое), calm (спокойное), sad (грустное), all (любое)",
+        choices=["active", "fun", "calm", "sad", "all", "lofi"],
+        help="Настроение волны: active (бодрое), fun (весёлое), calm (спокойное), sad (грустное), all (любое), lofi (лоу-фай)",
     )
     parser.add_argument(
         "--character",
@@ -83,8 +88,13 @@ def main():
         token = launch_browser_for_auth()
 
     # Apply wave mood settings if passed via CLI flags
+    is_lofi = args.lofi or (args.mood == "lofi")
     if args.wave:
         interactive_wave_setup(token)
+    elif is_lofi:
+        from yam_cliamp.auth import save_wave_preference
+        save_wave_preference("lofi", "default", "🎧 Lo-Fi (чилл / фокус / lofi hip-hop)")
+        print("🎧 Включен режим «Моя волна: Lo-Fi»!")
     elif args.mood or args.character or args.lang:
         mood = args.mood or "all"
         char = args.character or "default"
@@ -100,10 +110,13 @@ def main():
         return
 
     # DEFAULT BEHAVIOR:
-    # Run official /usr/bin/cliamp with --provider yandex
+    # Run official cliamp with --provider yandex
     cliamp_bin = shutil.which("cliamp")
     if cliamp_bin:
-        cmd = [cliamp_bin, "--provider", "yandex"] + extra_args
+        cmd = [cliamp_bin, "--provider", "yandex"]
+        if is_lofi:
+            cmd += ["--playlist", "wave:lofi", "--auto-play"]
+        cmd += extra_args
         os.execvp(cliamp_bin, cmd)
     else:
         # Fallback to python TUI if cliamp is not in PATH

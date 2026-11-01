@@ -10,6 +10,7 @@ import time
 from yam_cliamp.visualizer import WinampVisualizer
 
 WAVE_MOOD_ITEMS = [
+    ("lofi", "default", "🎧 Lo-Fi (чилл / фокус / lofi hip-hop)"),
     ("all", "default", "🎲 По умолчанию (стандартная Моя волна)"),
     ("active", "default", "🔥 Бодрое (энергичное)"),
     ("calm", "default", "☕ Спокойное (релакс)"),
@@ -347,7 +348,7 @@ class WinampUI:
         # Footer
         bottom_y = top + 2 + len(WAVE_MOOD_ITEMS)
         self.stdscr.addstr(bottom_y, left, "║", c_yellow)
-        self.stdscr.addstr(bottom_y, left + 2, " [↑/↓ / 1-8] Выбор   [Enter] Применить   [Esc] Отмена ", c_cyan)
+        self.stdscr.addstr(bottom_y, left + 2, " [↑/↓ / 1-9] Выбор   [Enter] Применить   [Esc] Отмена ", c_cyan)
         self.stdscr.addstr(bottom_y, left + box_w - 1, "║", c_yellow)
 
         footer = "╚" + "═" * (box_w - 2) + "╝"

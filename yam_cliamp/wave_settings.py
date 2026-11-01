@@ -7,11 +7,12 @@ Saves settings to Yandex Music servers for the user's 'user:onyourwave' station.
 from yandex_music import Client
 
 MOODS = {
-    "1": ("active", "🔥 Бодрое (энергичное)"),
-    "2": ("fun", "😄 Весёлое (радостное)"),
-    "3": ("calm", "☕ Спокойное (релакс)"),
-    "4": ("sad", "🌧 Грустное (меланхоличное)"),
-    "5": ("all", "🎲 Любое (по умолчанию)"),
+    "1": ("lofi", "🎧 Lo-Fi (чилл / фокус / lofi hip-hop)"),
+    "2": ("active", "🔥 Бодрое (энергичное)"),
+    "3": ("fun", "😄 Весёлое (радостное)"),
+    "4": ("calm", "☕ Спокойное (релакс)"),
+    "5": ("sad", "🌧 Грустное (меланхоличное)"),
+    "6": ("all", "🎲 Любое (по умолчанию)"),
 }
 
 DIVERSITIES = {
@@ -35,6 +36,8 @@ def set_wave_mood(
     language: str = "any",
 ) -> bool:
     """Sets wave settings directly on Yandex servers for user:onyourwave."""
+    if mood == "lofi":
+        return True
     try:
         client = Client(token).init()
         return bool(
@@ -60,7 +63,7 @@ def interactive_wave_setup(token: str) -> tuple[str, str, str]:
     print("\033[1;32m1. Выберите настроение:\033[0m")
     for k, (_, label) in MOODS.items():
         print(f"   [{k}] {label}")
-    ans_m = input("   Выберите пункт (1-5, Enter = Любое): ").strip()
+    ans_m = input("   Выберите пункт (1-6, Enter = Любое): ").strip()
     mood = MOODS.get(ans_m, ("all", ""))[0]
 
     # 2. Характер

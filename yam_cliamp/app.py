@@ -213,8 +213,9 @@ class YamCliampApp:
         # Save preference so it persists as default for future launches
         save_wave_preference(mood, char, label)
 
-        # Update on server
-        set_wave_mood(self.token, mood=mood, diversity=char)
+        # Update on server (standard moods use rotor station settings)
+        if mood != "lofi":
+            set_wave_mood(self.token, mood=mood, diversity=char)
         # Reload playlist
         self.player.load_wave(mood=mood, diversity=char, label=label)
         self.ui.selected_playlist_idx = 0

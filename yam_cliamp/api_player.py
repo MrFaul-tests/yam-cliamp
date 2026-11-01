@@ -95,11 +95,14 @@ class ApiPlayer:
             self.init_api()
 
         self.source_name = label
-        seeds = ["user:onyourwave"]
-        if mood and mood != "all":
-            seeds.append(f"settingMoodEnergy:{mood}")
-        if diversity and diversity != "default":
-            seeds.append(f"settingDiversity:{diversity}")
+        if mood == "lofi":
+            seeds = ["micro-genre:lofi-hip-hop", "user:onyourwave"]
+        else:
+            seeds = ["user:onyourwave"]
+            if mood and mood != "all":
+                seeds.append(f"settingMoodEnergy:{mood}")
+            if diversity and diversity != "default":
+                seeds.append(f"settingDiversity:{diversity}")
 
         try:
             session = self.client.rotor_session_new(seeds=seeds)
