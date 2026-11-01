@@ -1,0 +1,2 @@
+yandex-music>=3.2.2
+websockets>=13.0
