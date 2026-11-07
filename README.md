@@ -47,19 +47,32 @@
 
 ### 1. Установка `cliamp`
 
-Для работы плеера в основном режиме рекомендуется установить [cliamp](https://github.com/bjarneo/cliamp). Выберите любой удобный способ:
+Для работы плеера в основном режиме рекомендуется установить `cliamp`. Вы можете выбрать как модифицированный форк с расширенными возможностями «Моей волны», так и оригинальную версию:
 
-#### Способ 1: Быстрый официальный скрипт (Linux / macOS)
+#### Вариант А (Рекомендуется): Сборка пропатченного форка [MrFaul-tests/cliamp](https://github.com/MrFaul-tests/cliamp)
+В этом форке на Go реализованы эксклюзивные улучшения для Яндекс Музыки:
+- 🔄 **Переключение настроения волны на лету**: клавиша **`W`** (`Shift+W`) циклически меняет настроение прямо во время воспроизведения в TUI с показом уведомлений.
+- ♾️ **Бесконечный непрерывный поток**: автоматическая догрузка рекомендаций волны пачками по 15 треков при приближении к концу списка.
+- ☕ **Станция «Моя волна: Lo-Fi»**: поддержка чилл/фокус волны и флага `--playlist wave:lofi`.
+
+Сборка из исходников (требуется Go 1.22+):
 ```bash
-curl -fsSL https://cliamp.stream/install.sh | sh
+git clone https://github.com/MrFaul-tests/cliamp.git
+cd cliamp
+go build -o cliamp .
+mkdir -p ~/.local/bin && mv cliamp ~/.local/bin/
 ```
 
-#### Способ 2: Через пакетные менеджеры
+#### Вариант Б: Установка официального upstream cliamp
+Если вам достаточно стандартных возможностей:
+- **Официальный скрипт (Linux / macOS)**:
+  ```bash
+  curl -fsSL https://cliamp.stream/install.sh | sh
+  ```
 - **Arch Linux (AUR)**:
   ```bash
   yay -S cliamp
-  # или
-  paru -S cliamp
+  # или: paru -S cliamp
   ```
 - **macOS / Linux (Homebrew)**:
   ```bash
@@ -69,14 +82,6 @@ curl -fsSL https://cliamp.stream/install.sh | sh
   ```bash
   nix run github:bjarneo/cliamp
   ```
-
-#### Способ 3: Сборка из исходников (требуется Go 1.22+)
-```bash
-git clone https://github.com/bjarneo/cliamp.git
-cd cliamp
-go build -o cliamp .
-mkdir -p ~/.local/bin && mv cliamp ~/.local/bin/
-```
 
 > 💡 **Подсказка:** Если `cliamp` не установлен в системе, `yam-cliamp` автоматически запустит встроенный резервный TUI-плеер на Python (`--py`), поэтому звук и воспроизведение будут работать в любом случае!
 
