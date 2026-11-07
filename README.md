@@ -3,7 +3,7 @@
 > **Ретро-терминальный плеер и нативная интеграция Яндекс Музыки с `cliamp` в стиле легендарного Winamp.**
 
 [![Python](https://img.shields.io/badge/Python-3.10+-3776AB?style=flat&logo=python&logoColor=white)](https://python.org)
-[![cliamp](https://img.shields.io/badge/integration-cliamp-orange?style=flat)](https://github.com/bjarneo/cliamp)
+[![cliamp fork](https://img.shields.io/badge/cliamp-fork-orange?style=flat)](https://github.com/MrFaul-tests/cliamp)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
 ---
@@ -14,7 +14,7 @@
 
 Проект решает ключевые проблемы использования Яндекс Музыки в терминале:
 1. **Автоматическая авторизация в 1 клик**: больше не нужно вручную вытаскивать и вставлять токены через консоль разработчика. yam-cliamp открывает окно браузера с официальным OAuth Яндекса (вход по QR-коду, телефону или паролю), перехватывает токен через Chrome DevTools Protocol (CDP) и автоматически закрывает браузер.
-2. **Бесшовная интеграция с `cliamp`**: токен автоматически прописывается в конфигурацию официального плеера [cliamp](https://github.com/bjarneo/cliamp) (`~/.config/cliamp/config.toml`), запуская его с провайдером `--provider yandex`.
+2. **Бесшовная интеграция с `cliamp`**: токен автоматически прописывается в конфигурацию плеера [cliamp](https://github.com/MrFaul-tests/cliamp) (`~/.config/cliamp/config.toml`), запуская его с провайдером `--provider yandex`.
 3. **«Моя волна» под контролем**: возможность на лету переключать настроение волны («Бодрое», «Спокойное», «Весёлое», «Грустное», «Любимое», «Незнакомое», «Lo-Fi» и др.) прямо во время воспроизведения клавишей `Shift+W` (`W`), через консольные флаги или через всплывающее меню.
 4. **Два режима работы**:
    - 🚀 **Основной режим**: быстрый запуск мощного плеера `cliamp` (написанного на Go) с провайдером Яндекс Музыки.
@@ -39,18 +39,15 @@
 - **Python**: 3.10 или новее
 - **mpv**: консольный аудиоплеер (`sudo pacman -S mpv` / `sudo apt install mpv`)
 - **Chromium / Chrome / Brave**: браузер для разовой авторизации через CDP
-- **cliamp** (рекомендуется): официальный терминальный плеер [cliamp](https://github.com/bjarneo/cliamp)
+- **cliamp** (рекомендуется): форк терминального плеера [MrFaul-tests/cliamp](https://github.com/MrFaul-tests/cliamp)
 
 ---
 
 ## 🚀 Установка и быстрый старт
 
-### 1. Установка `cliamp`
+### 1. Установка форка `cliamp`
 
-Для работы плеера в основном режиме рекомендуется установить `cliamp`. Вы можете выбрать как модифицированный форк с расширенными возможностями «Моей волны», так и оригинальную версию:
-
-#### Вариант А (Рекомендуется): Сборка пропатченного форка [MrFaul-tests/cliamp](https://github.com/MrFaul-tests/cliamp)
-В этом форке на Go реализованы эксклюзивные улучшения для Яндекс Музыки:
+Для работы плеера в основном режиме собирается модифицированный форк [MrFaul-tests/cliamp](https://github.com/MrFaul-tests/cliamp) на Go, в котором реализованы специальные возможности для Яндекс Музыки:
 - 🔄 **Переключение настроения волны на лету**: клавиша **`W`** (`Shift+W`) циклически меняет настроение прямо во время воспроизведения в TUI с показом уведомлений.
 - ♾️ **Бесконечный непрерывный поток**: автоматическая догрузка рекомендаций волны пачками по 15 треков при приближении к концу списка.
 - ☕ **Станция «Моя волна: Lo-Fi»**: поддержка чилл/фокус волны и флага `--playlist wave:lofi`.
@@ -62,26 +59,6 @@ cd cliamp
 go build -o cliamp .
 mkdir -p ~/.local/bin && mv cliamp ~/.local/bin/
 ```
-
-#### Вариант Б: Установка официального upstream cliamp
-Если вам достаточно стандартных возможностей:
-- **Официальный скрипт (Linux / macOS)**:
-  ```bash
-  curl -fsSL https://cliamp.stream/install.sh | sh
-  ```
-- **Arch Linux (AUR)**:
-  ```bash
-  yay -S cliamp
-  # или: paru -S cliamp
-  ```
-- **macOS / Linux (Homebrew)**:
-  ```bash
-  brew install bjarneo/cliamp/cliamp
-  ```
-- **Nix**:
-  ```bash
-  nix run github:bjarneo/cliamp
-  ```
 
 > 💡 **Подсказка:** Если `cliamp` не установлен в системе, `yam-cliamp` автоматически запустит встроенный резервный TUI-плеер на Python (`--py`), поэтому звук и воспроизведение будут работать в любом случае!
 
