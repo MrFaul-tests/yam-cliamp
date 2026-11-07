@@ -45,14 +45,51 @@
 
 ## 🚀 Установка и быстрый старт
 
-### 1. Клонирование репозитория
+### 1. Установка `cliamp`
+
+Для работы плеера в основном режиме рекомендуется установить [cliamp](https://github.com/bjarneo/cliamp). Выберите любой удобный способ:
+
+#### Способ 1: Быстрый официальный скрипт (Linux / macOS)
+```bash
+curl -fsSL https://cliamp.stream/install.sh | sh
+```
+
+#### Способ 2: Через пакетные менеджеры
+- **Arch Linux (AUR)**:
+  ```bash
+  yay -S cliamp
+  # или
+  paru -S cliamp
+  ```
+- **macOS / Linux (Homebrew)**:
+  ```bash
+  brew install bjarneo/cliamp/cliamp
+  ```
+- **Nix**:
+  ```bash
+  nix run github:bjarneo/cliamp
+  ```
+
+#### Способ 3: Сборка из исходников (требуется Go 1.22+)
+```bash
+git clone https://github.com/bjarneo/cliamp.git
+cd cliamp
+go build -o cliamp .
+mkdir -p ~/.local/bin && mv cliamp ~/.local/bin/
+```
+
+> 💡 **Подсказка:** Если `cliamp` не установлен в системе, `yam-cliamp` автоматически запустит встроенный резервный TUI-плеер на Python (`--py`), поэтому звук и воспроизведение будут работать в любом случае!
+
+---
+
+### 2. Клонирование репозитория yam-cliamp
 
 ```bash
 git clone https://github.com/MrFaul-tests/yam-cliamp.git
 cd yam-cliamp
 ```
 
-### 2. Установка зависимостей Python
+### 3. Установка зависимостей Python
 
 ```bash
 pip install -r requirements.txt
@@ -60,7 +97,7 @@ pip install -r requirements.txt
 
 *(Зависимости: `yandex-music` и `websockets`)*
 
-### 3. Создание симлинка (для запуска из любой точки терминала)
+### 4. Создание команды запуска (симлинк)
 
 ```bash
 mkdir -p ~/.local/bin
