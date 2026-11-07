@@ -1,2 +1,34 @@
+# Byte-compiled / optimized / DLL files
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
+
+# Credentials & configs
+config.json
+*.token
+*.key
+.env
+.env.*
+
+# Temporary / runtime
+profile/
+*.sock
+*.pid
+*.log
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Distribution / packaging
+build/
+dist/
+*.egg-info/
+
+# IDE & editors
+.idea/
+.vscode/
+*.swp
+*.swo

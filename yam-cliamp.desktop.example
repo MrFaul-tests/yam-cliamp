@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=yam-cliamp
+Comment=Терминальный ретро-плеер Яндекс Музыки
+Exec=sh -c 'yam-cliamp'
+Icon=multimedia-audio-player
+Terminal=true
+Categories=Audio;Music;Player;AudioVideo;
+Keywords=music;yandex;winamp;cliamp;player;
