@@ -163,7 +163,7 @@ yam-cliamp --status
 Type=Application
 Name=yam-cliamp
 Comment=Терминальный ретро-плеер Яндекс Музыки
-Exec=kitty --class yam-cliamp --title cliamp /home/mrfaul/.local/bin/yam-cliamp
+Exec=kitty --class yam-cliamp --title cliamp ~/.local/bin/yam-cliamp
 Icon=cliamp
 Terminal=false
 Categories=Audio;Music;Player;AudioVideo;
